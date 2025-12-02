@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import { Link } from "expo-router";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useState } from "react";
 import axios from "axios";
@@ -19,7 +20,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [token, setToken] = useState(null);
-  console.log(email);
+  //   console.log(email);
   const handleSubmit = async (event) => {
     event.preventDefault();
     let response;
@@ -33,14 +34,14 @@ export default function LoginPage() {
         );
         if (response.data.token) {
           setToken(response.data.token);
-          setErrorMessage("connected !");
+          setErrorMessage("Connected !");
         } else {
           setErrorMessage("Wrong email and/or password");
         }
       } catch (error) {
         error.response
           ? setErrorMessage("Wrong email and/or password")
-          : console.log("coucou");
+          : console.log(error.response);
       }
     }
   };
@@ -77,6 +78,7 @@ export default function LoginPage() {
           <TouchableOpacity style={styles.loginSubmit} onPress={handleSubmit}>
             <Text style={styles.submitText}>Login</Text>
           </TouchableOpacity>
+          <Link href="/signup">Pas encore de compte ? Inscrivez-vous.</Link>
         </View>
       </View>
     </KeyboardAwareScrollView>
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
   logoTitle: { alignItems: "center", gap: 10 },
   title: { fontSize: 24, fontWeight: 600, color: `grey` },
 
-  inputSection: { gap: 50 },
+  inputSection: { gap: 30 },
   input: {
     width: 300,
     height: 38,
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
 
-  submitSection: { gap: 10, alignItems: "center" },
+  submitSection: { gap: 25, alignItems: "center" },
   loginSubmit: {
     borderWidth: 3,
     borderColor: `#E11960`,
