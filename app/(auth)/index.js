@@ -8,8 +8,10 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+
+import { AuthContext } from "../../context/AuthContext";
 
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
@@ -21,6 +23,9 @@ export default function LoginPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { setUserID, setUserToken } = useContext(AuthContext);
+
   //   console.log(email);
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -35,8 +40,11 @@ export default function LoginPage() {
           { email: email, password: password }
         );
         if (response.data.token) {
+          console.log("RES", response.data);
           setToken(response.data.token);
-          setErrorMessage("Connected !");
+          setUserToken(response.data.token);
+          setUserID(response.data._id);
+          // setErrorMessage("Connected !");
         } else {
           setErrorMessage("Wrong email and/or password");
           setIsLoading(false);
