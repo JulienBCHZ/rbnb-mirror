@@ -21,6 +21,7 @@ export default function SignupPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [token, setToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -70,12 +71,14 @@ export default function SignupPage() {
             value={username}
             onChangeText={setUsername}
             style={styles.input}
+            autoCapitalize="none"
           />
           <TextInput
             placeholder="email"
             value={email}
             onChangeText={setEmail}
             style={styles.input}
+            autoCapitalize="none"
           />
           <TextInput
             placeholder="description"
@@ -120,10 +123,21 @@ export default function SignupPage() {
           {errorMessage && (
             <Text style={styles.errorMessage}>{errorMessage}</Text>
           )}
-          <TouchableOpacity style={styles.loginSubmit} onPress={handleSubmit}>
+          {isLoading ? (
+            <View style={styles.submitDisabled}>
+              <Text style={styles.submitDisabledText}>Login</Text>
+            </View>
+          ) : (
+            <TouchableOpacity style={styles.loginSubmit} onPress={handleSubmit}>
+              <Text style={styles.submitText}>Login</Text>
+            </TouchableOpacity>
+          )}
+          {/* <TouchableOpacity style={styles.loginSubmit} onPress={handleSubmit}>
             <Text style={styles.submitText}>Login</Text>
-          </TouchableOpacity>
-          <Link href="/login">Déjà un compte ? Connectez-vous.</Link>
+          </TouchableOpacity> */}
+          <Link href="/" replace>
+            Déjà un compte ? Connectez-vous.
+          </Link>
         </View>
       </View>
     </KeyboardAwareScrollView>
@@ -168,4 +182,15 @@ const styles = StyleSheet.create({
   },
   submitText: { color: `#E11960`, fontSize: 20 },
   errorMessage: { color: "red", fontSize: 18 },
+
+  submitDisabled: {
+    borderWidth: 3,
+    borderColor: "lightgrey",
+    width: 150,
+    height: 50,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  submitDisabledText: { color: "lightgrey", fontSize: 20 },
 });

@@ -20,6 +20,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [token, setToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   //   console.log(email);
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,6 +28,7 @@ export default function LoginPage() {
     if (!password || !email) {
       setErrorMessage("Field(s) missing !");
     } else {
+      setIsLoading(true);
       try {
         response = await axios.post(
           "https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/user/log_in",
@@ -37,11 +39,13 @@ export default function LoginPage() {
           setErrorMessage("Connected !");
         } else {
           setErrorMessage("Wrong email and/or password");
+          setIsLoading(false);
         }
       } catch (error) {
         error.response
           ? setErrorMessage("Wrong email and/or password")
-          : console.log(error.response);
+          : console.log(error);
+        setIsLoading(false);
       }
     }
   };
@@ -62,6 +66,7 @@ export default function LoginPage() {
             value={email}
             onChangeText={setEmail}
             style={styles.input}
+            autoCapitalize="none"
           />
           <TextInput
             placeholder="password"
@@ -75,10 +80,21 @@ export default function LoginPage() {
           {errorMessage && (
             <Text style={styles.errorMessage}>{errorMessage}</Text>
           )}
-          <TouchableOpacity style={styles.loginSubmit} onPress={handleSubmit}>
+          {isLoading ? (
+            <View style={styles.submitDisabled}>
+              <Text style={styles.submitDisabledText}>Login</Text>
+            </View>
+          ) : (
+            <TouchableOpacity style={styles.loginSubmit} onPress={handleSubmit}>
+              <Text style={styles.submitText}>Login</Text>
+            </TouchableOpacity>
+          )}
+          {/* <TouchableOpacity style={styles.loginSubmit} onPress={handleSubmit}>
             <Text style={styles.submitText}>Login</Text>
-          </TouchableOpacity>
-          <Link href="/signup">Pas encore de compte ? Inscrivez-vous.</Link>
+          </TouchableOpacity> */}
+          <Link href="/signup" replace>
+            Pas encore de compte ? Inscrivez-vous.
+          </Link>
         </View>
       </View>
     </KeyboardAwareScrollView>
@@ -96,7 +112,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: `#fff`,
-    paddingVertical: 50,
+    paddingVertical: 40,
     paddingHorizontal: 2,
   },
 
@@ -124,4 +140,15 @@ const styles = StyleSheet.create({
   },
   submitText: { color: `#E11960`, fontSize: 20 },
   errorMessage: { color: "red", fontSize: 18 },
+
+  submitDisabled: {
+    borderWidth: 3,
+    borderColor: "lightgrey",
+    width: 150,
+    height: 50,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  submitDisabledText: { color: "lightgrey", fontSize: 20 },
 });
