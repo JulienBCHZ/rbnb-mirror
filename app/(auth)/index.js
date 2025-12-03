@@ -21,10 +21,9 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { setUserID, setUserToken } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
   //   console.log(email);
   const handleSubmit = async (event) => {
@@ -40,10 +39,10 @@ export default function LoginPage() {
           { email: email, password: password }
         );
         if (response.data.token) {
-          console.log("RES", response.data);
-          setToken(response.data.token);
-          setUserToken(response.data.token);
-          setUserID(response.data._id);
+          console.log("RES LOG", response.data);
+          login(response.data.id, response.data.token);
+          // setUserToken(response.data.token);
+          // setUserID(response.data._id);
           // setErrorMessage("Connected !");
         } else {
           setErrorMessage("Wrong email and/or password");

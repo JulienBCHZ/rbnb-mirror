@@ -7,17 +7,12 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
-
-export default function ProfilePage() {
-  const { logout } = useContext(AuthContext);
-
+export default function RoomsPage() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile Page</Text>
-      <TouchableOpacity onPress={logout} style={styles.logoutButton}>
-        <Text style={{ color: `#E11960` }}>Logout</Text>
+      <Text style={styles.title}>All Rooms Page</Text>
+      <TouchableOpacity onPress={logout} style={styles.roomButton}>
+        <Text style={{ color: `#E11960` }}>Room</Text>
       </TouchableOpacity>
     </View>
   );
@@ -28,13 +23,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    gap: 20,
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
   },
-  logoutButton: {
+  roomButton: {
     backgroundColor: `white`,
     borderWidth: 3,
     borderColor: `#E11960`,

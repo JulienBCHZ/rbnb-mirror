@@ -7,10 +7,10 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 
-export default function HomePage() {
+export default function RoomPage() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home Page</Text>
+      <Text style={styles.title}>Room Page</Text>
     </View>
   );
 }

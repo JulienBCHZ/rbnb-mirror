@@ -11,7 +11,7 @@ const RootNavigator = () => {
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       </Stack.Protected>
       <Stack.Protected guard={userID && userToken}>
-        <Stack.Screen name="main" />
+        <Stack.Screen name="main" options={{ headerShown: false }} />
       </Stack.Protected>
     </Stack>
   );

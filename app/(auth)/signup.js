@@ -8,8 +8,10 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+
+import { AuthContext } from "../../context/AuthContext";
 
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
@@ -20,8 +22,9 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -42,8 +45,10 @@ export default function SignupPage() {
           }
         );
         if (response.data.token) {
-          setToken(response.data.token);
-          setErrorMessage("Account created !");
+          console.log("RES", response.data);
+          login(response.data.id, response.data.token);
+          // setToken(response.data.token);
+          setErrorMessage("");
         } else {
           setErrorMessage("Check all fields !");
         }
@@ -113,8 +118,7 @@ export default function SignupPage() {
                     fontSize: 30,
                     borderBottomColor: `red`,
                     borderBottomWidth: 2,
-                    backgroundColor: "red",
-                    color: "white",
+                    color: "red",
                   }
             }
           />
@@ -129,7 +133,7 @@ export default function SignupPage() {
             </View>
           ) : (
             <TouchableOpacity style={styles.loginSubmit} onPress={handleSubmit}>
-              <Text style={styles.submitText}>Login</Text>
+              <Text style={styles.submitText}>Signup</Text>
             </TouchableOpacity>
           )}
           {/* <TouchableOpacity style={styles.loginSubmit} onPress={handleSubmit}>
