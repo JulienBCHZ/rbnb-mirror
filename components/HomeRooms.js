@@ -24,7 +24,20 @@ const HomeRooms = ({
   setErrorMessage,
 }) => {
   useEffect(() => {
-    const fetchData = () => {};
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/rooms"
+        );
+        console.log("DATA :", response.data);
+        setData(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        setErrorMessage("Something went wrong...");
+        console.log(error);
+      }
+    };
   }, []);
 
   return <View></View>;
