@@ -5,12 +5,22 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 export default function RoomPage() {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Room Page</Text>
+      {/* <TouchableOpacity
+        onPress={() => {
+          router.navigate("/main/home/rooms");
+        }}
+        style={styles.roomButton}
+      >
+        <Text style={{ color: `#E11960` }}>Rooms</Text>
+      </TouchableOpacity> */}
     </View>
   );
 }

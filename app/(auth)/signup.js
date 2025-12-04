@@ -45,7 +45,7 @@ export default function SignupPage() {
           }
         );
         if (response.data.token) {
-          console.log("RES", response.data);
+          // console.log("RES", response.data);
           login(response.data.id, response.data.token);
           // setToken(response.data.token);
           setErrorMessage("");

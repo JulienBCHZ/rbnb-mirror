@@ -3,7 +3,8 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const RootNavigator = () => {
-  const { userID, userToken } = useContext(AuthContext);
+  const { userID, userToken, userAuth } = useContext(AuthContext);
+  userAuth();
 
   return (
     <Stack>
