@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AuthContext = createContext();
@@ -10,37 +10,37 @@ export const AuthContextProvider = ({ children }) => {
   const login = async (id, token) => {
     setUserID(id);
     setUserToken(token);
-    const authValues = JSON.stringify({
-      id: id,
-      token: token,
-    });
-    // console.log("AUTH :", authValues);
-    await AsyncStorage.setItem("userAuth", authValues);
-  };
-
-  const userAuth = async () => {
-    const authStored = await AsyncStorage.getItem("userAuth");
-
-    if (authStored) {
-      const userAuthValues = JSON.parse(authStored);
-      console.log("AUTH VALUES :", userAuthValues.token);
-      setUserID(userAuthValues.id);
-      setUserToken(userAuthValues.token);
-    } else {
-      return null;
-    }
+    await AsyncStorage.setItem("userAuthId", id);
+    await AsyncStorage.setItem("userAuthToken", token);
   };
 
   const logout = async () => {
     setUserID(null);
     setUserToken(null);
-    await AsyncStorage.removeItem("userAuth");
+    await AsyncStorage.removeItem("userAuthId");
+    await AsyncStorage.removeItem("userAuthToken");
   };
 
+  useEffect(() => {
+    const getUserAuth = async () => {
+      try {
+        const storedId = await AsyncStorage.getItem("userAuthId");
+        const storedToken = await AsyncStorage.getItem("userAuthToken");
+
+        if (storedId && storedToken) {
+          console.log("AUTH VALUES :", storedId);
+          setUserID(storedId);
+          setUserToken(storedToken);
+        }
+      } catch (error) {
+        console.log("asyncStorage error :", error);
+      }
+    };
+    getUserAuth();
+  }, []);
+
   return (
-    <AuthContext.Provider
-      value={{ userID, userToken, login, logout, userAuth }}
-    >
+    <AuthContext.Provider value={{ userID, userToken, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
