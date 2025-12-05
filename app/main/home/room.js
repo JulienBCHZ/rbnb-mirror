@@ -5,22 +5,30 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { Link, useRouter, useLocalSearchParams } from "expo-router";
+
+import RoomDetails from "../../../components/RoomDetails";
 
 export default function RoomPage() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const router = useRouter();
+  const params = useLocalSearchParams();
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Room Page</Text>
-      {/* <TouchableOpacity
-        onPress={() => {
-          router.navigate("/main/home/rooms");
-        }}
-        style={styles.roomButton}
-      >
-        <Text style={{ color: `#E11960` }}>Rooms</Text>
-      </TouchableOpacity> */}
+      <RoomDetails
+        id={params.id}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        data={data}
+        setData={setData}
+        errorMessage={errorMessage}
+        setErrorMessage={setErrorMessage}
+      />
     </View>
   );
 }

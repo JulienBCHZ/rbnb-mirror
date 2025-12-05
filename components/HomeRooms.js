@@ -28,6 +28,8 @@ const HomeRooms = ({
   errorMessage,
   setErrorMessage,
 }) => {
+  const router = useRouter();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,7 +37,7 @@ const HomeRooms = ({
           "https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/rooms"
         );
         if (response.data) {
-          console.log("DATA :", response.data);
+          //   console.log("DATA :", response.data);
           setData(response.data);
           setIsLoading(false);
         } else {
@@ -57,25 +59,41 @@ const HomeRooms = ({
     <View>
       {/* <Text>Coucou</Text> */}
       <FlatList
+        contentContainerStyle={{
+          gap: 10,
+        }}
         data={data}
         keyExtractor={(item) => {
           return String(item._id);
         }}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity>
+            <TouchableOpacity
+              style={styles.previewContainer}
+              onPress={() => {
+                router.navigate({ pathname: "/main/home/room", id: item._id });
+              }}
+            >
               <View>
                 <Image
-                  style={{ height: 150, width: 300 }}
+                  style={{ height: 180, width: 350 }}
                   source={{ uri: item.photos[0].url }}
                 />
-                <View>
-                  <Text>{item.price}</Text>
-                  <Text>€</Text>
+                <View style={styles.price}>
+                  <Text style={styles.textColor}>{item.price}</Text>
+                  <Text style={styles.textColor}>€</Text>
                 </View>
               </View>
               <View>
-                <Text>{item.title}</Text>
+                <View>
+                  <Text
+                    style={styles.textTitle}
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                  >
+                    {item.title}
+                  </Text>
+                </View>
               </View>
             </TouchableOpacity>
           );
@@ -86,3 +104,27 @@ const HomeRooms = ({
 };
 
 export default HomeRooms;
+
+const styles = StyleSheet.create({
+  previewContainer: {
+    gap: 10,
+    paddingTop: 10,
+    paddingBottom: 5,
+    borderBottomColor: "lightgrey",
+    borderBottomWidth: 2,
+  },
+  pictureAndPrice: { position: "relative" },
+  price: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 10,
+    gap: 3,
+    height: 35,
+    width: 80,
+    backgroundColor: "black",
+  },
+  textColor: { color: "white", fontWeight: 600 },
+  textTitle: { fontSize: 18, width: 280 },
+});

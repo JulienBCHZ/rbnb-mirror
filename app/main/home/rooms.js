@@ -22,57 +22,8 @@ export default function RoomsPage() {
 
   const router = useRouter();
 
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       try {
-  //         const response = await axios.get(
-  //           "https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/rooms"
-  //         );
-  //         if (response.data) {
-  //           console.log("DATA :", response.data);
-  //           setData(response.data);
-  //           setIsLoading(false);
-  //         } else {
-  //           setErrorMessage("Something went wrong...");
-  //           console.log(response);
-  //         }
-  //       } catch (error) {
-  //         setIsLoading(false);
-  //         setErrorMessage("Something went wrong...");
-  //         console.log(error);
-  //       }
-  //     };
-  //     fetchData();
-  //   }, []);
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>All Rooms Page</Text>
-      {/* <FlatList
-        data={data}
-        keyExtractor={(item) => {
-          return String(item._id);
-        }}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity>
-              <View>
-                <Image
-                  style={{ height: 150, width: 300 }}
-                  source={{ uri: item.photos[0].url }}
-                />
-                <View>
-                  <Text>{item.price}</Text>
-                  <Text>€</Text>
-                </View>
-              </View>
-              <View>
-                <Text>{item.title}</Text>
-              </View>
-            </TouchableOpacity>
-          );
-        }}
-      /> */}
       <HomeRooms
         isLoading={isLoading}
         setIsLoading={setIsLoading}
@@ -87,6 +38,7 @@ export default function RoomsPage() {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     flex: 1,
     // justifyContent: "center",
     alignItems: "center",
