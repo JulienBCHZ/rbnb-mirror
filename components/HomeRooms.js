@@ -8,7 +8,7 @@ import {
   FlatList,
   Image,
 } from "react-native";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useRouter } from "expo-router";
 import axios from "axios";
 
@@ -71,7 +71,10 @@ const HomeRooms = ({
             <TouchableOpacity
               style={styles.previewContainer}
               onPress={() => {
-                router.navigate({ pathname: "/main/home/room", id: item._id });
+                router.navigate({
+                  pathname: "/main/home/room",
+                  params: { id: item._id },
+                });
               }}
             >
               <View>

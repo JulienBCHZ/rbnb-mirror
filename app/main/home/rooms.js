@@ -8,7 +8,7 @@ import {
   FlatList,
   Image,
 } from "react-native";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useRouter } from "expo-router";
 import axios from "axios";
 
@@ -24,6 +24,7 @@ export default function RoomsPage() {
 
   return (
     <View style={styles.container}>
+      {errorMessage && <Text>{errorMessage}</Text>}
       <HomeRooms
         isLoading={isLoading}
         setIsLoading={setIsLoading}

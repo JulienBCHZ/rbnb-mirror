@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Link, useRouter, useLocalSearchParams } from "expo-router";
+import { useState } from "react";
 
 import RoomDetails from "../../../components/RoomDetails";
 
@@ -16,10 +17,9 @@ export default function RoomPage() {
 
   const router = useRouter();
   const params = useLocalSearchParams();
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Room Page</Text>
+      {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
       <RoomDetails
         id={params.id}
         isLoading={isLoading}
@@ -35,8 +35,9 @@ export default function RoomPage() {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     flex: 1,
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
   },
   title: {
