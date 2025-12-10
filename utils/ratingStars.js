@@ -22,7 +22,37 @@ const ratingStars = (value) => {
         <Entypo name="star" size={24} color="black" style={styles.ratingStar} />
       </View>
     );
-  }
+  } else if (value === 4) {
+    return (
+      <View style={styles.ratingContainer}>
+        <Entypo name="star" size={24} color="black" style={styles.ratingStar} />
+        <Entypo name="star" size={24} color="black" style={styles.ratingStar} />
+        <Entypo name="star" size={24} color="black" style={styles.ratingStar} />
+        <Entypo name="star" size={24} color="black" style={styles.ratingStar} />
+      </View>
+    );
+  } else if (value === 3) {
+    return (
+      <View style={styles.ratingContainer}>
+        <Entypo name="star" size={24} color="black" style={styles.ratingStar} />
+        <Entypo name="star" size={24} color="black" style={styles.ratingStar} />
+        <Entypo name="star" size={24} color="black" style={styles.ratingStar} />
+      </View>
+    );
+  } else if (value === 2) {
+    return (
+      <View style={styles.ratingContainer}>
+        <Entypo name="star" size={24} color="black" style={styles.ratingStar} />
+        <Entypo name="star" size={24} color="black" style={styles.ratingStar} />
+      </View>
+    );
+  } else if (value === 1) {
+    return (
+      <View style={styles.ratingContainer}>
+        <Entypo name="star" size={24} color="black" style={styles.ratingStar} />
+      </View>
+    );
+  } else if (value === 0) return null;
 };
 
 export default ratingStars;
