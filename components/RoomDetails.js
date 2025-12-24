@@ -49,11 +49,29 @@ const RoomDetails = ({
     };
     fetchData();
   }, []);
-
+  // Dans le swiper intégrer un .map() avec le shéma suivant : <View><Image /></View> pour chaque item
   return isLoading ? (
     ActivityIndicatorApp()
   ) : (
     <View style={styles.roomDetailsContainer}>
+      <View style={styles.photos}>
+        <Swiper
+          height={200}
+          style={styles.swipeWrapper}
+          showsButtons={true}
+          showsPagination={true}
+        >
+          <View style={styles.slide}>
+            <Image style={styles.photo} source={{ uri: data.photos[0].url }} />
+          </View>
+          <View style={styles.slide}>
+            <Image style={styles.photo} source={{ uri: data.photos[1].url }} />
+          </View>
+          <View style={styles.slide}>
+            <Image style={styles.photo} source={{ uri: data.photos[2].url }} />
+          </View>
+        </Swiper>
+      </View>
       <View style={styles.description}>
         <View>
           <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
@@ -86,4 +104,10 @@ const styles = StyleSheet.create({
   description: { paddingLeft: 10, paddingRight: 10 },
   ratingContainer: { flexDirection: "row", alignItems: "center" },
   ratingStar: { fontSize: 22, color: "gold" },
+  photo: { height: 180, width: 350 },
+  slide: {
+    alignItems: "center",
+    height: 180,
+  },
+  swipeWrapper: { justifyContent: "center" },
 });

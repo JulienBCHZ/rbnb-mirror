@@ -1,13 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  ActivityIndicator,
-  FlatList,
-  Image,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import Entypo from "@expo/vector-icons/Entypo";
 
