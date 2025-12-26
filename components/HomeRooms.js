@@ -77,7 +77,7 @@ const HomeRooms = ({
                 });
               }}
             >
-              <View>
+              <View style={styles.pictureAndPrice}>
                 <Image
                   style={{ height: 180, width: 350 }}
                   source={{ uri: item.photos[0].url }}
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "lightgrey",
     borderBottomWidth: 2,
   },
-  pictureAndPrice: { position: "relative" },
+  // pictureAndPrice: {},
   price: {
     flexDirection: "row",
     alignItems: "center",
