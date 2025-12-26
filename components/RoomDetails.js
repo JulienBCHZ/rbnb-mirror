@@ -36,6 +36,8 @@ const RoomDetails = ({
   const router = useRouter();
   const [showText, setShowText] = useState(false);
 
+  console.log("ID: ", id);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
