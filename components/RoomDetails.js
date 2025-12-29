@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { Link, useRouter } from "expo-router";
 import axios from "axios";
 import Swiper from "react-native-swiper";
+import * as Location from "expo-location";
 
 import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -60,6 +61,11 @@ const RoomDetails = ({
       }
     };
     fetchData();
+    const askPermissionForLocalisation = async () => {
+      const response = await Location.requestForegroundPermissionsAsync();
+      console.log(response.status);
+    };
+    askPermissionForLocalisation();
   }, []);
   // Dans le swiper intégrer un .map() avec le shéma suivant : <View><Image /></View> pour chaque item
   return isLoading ? (
