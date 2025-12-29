@@ -1,5 +1,5 @@
 import MapView, { Marker } from "react-native-maps";
-import { View, Text, Image, Dimensions, pressable } from "react-native";
+import { Dimensions } from "react-native";
 
 const { width } = Dimensions.get("window");
 

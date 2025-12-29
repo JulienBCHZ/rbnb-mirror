@@ -6,11 +6,28 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Link } from "expo-router";
+import { useState } from "react";
+
+import MainMap from "../../components/MainMap";
 
 export default function MapPage() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [mapData, setMapData] = useState(null);
+  const [actualPosition, setActualPosition] = useState(null);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Map Page</Text>
+      <MainMap
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        mapData={mapData}
+        setMapData={setMapData}
+        errorMessage={errorMessage}
+        setErrorMessage={setErrorMessage}
+        actualPosition={actualPosition}
+        setActualPosition={setActualPosition}
+      />
     </View>
   );
 }
@@ -18,8 +35,6 @@ export default function MapPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
   title: {
     fontSize: 24,

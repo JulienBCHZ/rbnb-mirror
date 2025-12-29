@@ -2,14 +2,11 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   Pressable,
   TouchableOpacity,
-  ActivityIndicator,
   FlatList,
   Image,
   Dimensions,
-  ViewBase,
 } from "react-native";
 import { useEffect, useState } from "react";
 import { Link, useRouter } from "expo-router";

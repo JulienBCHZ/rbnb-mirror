@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
 
 const ActivityIndicatorApp = () => {
   return (

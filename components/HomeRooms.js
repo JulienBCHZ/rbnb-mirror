@@ -2,9 +2,7 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   TouchableOpacity,
-  ActivityIndicator,
   FlatList,
   Image,
 } from "react-native";
