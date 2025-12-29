@@ -80,26 +80,18 @@ const RoomDetails = ({
             height={180}
             width={width}
             autoplay
-            // showsButtons={true}
           >
-            <View style={styles.slide}>
-              <Image
-                style={styles.photo}
-                source={{ uri: data.photos[0].url }}
-              />
-            </View>
-            <View style={styles.slide}>
-              <Image
-                style={styles.photo}
-                source={{ uri: data.photos[1].url }}
-              />
-            </View>
-            <View style={styles.slide}>
-              <Image
-                style={styles.photo}
-                source={{ uri: data.photos[2].url }}
-              />
-            </View>
+            {data.photos?.map((item) => {
+              return (
+                <View style={styles.slide} key={item.picture_id}>
+                  <Image
+                    style={styles.photo}
+                    source={{ uri: item.url }}
+                    alt="room pictures"
+                  />
+                </View>
+              );
+            })}
           </Swiper>
         </Pressable>
         <View style={styles.roomOverview}>
@@ -124,6 +116,7 @@ const RoomDetails = ({
             <Image
               style={styles.ownerAvatar}
               source={{ uri: data.user.account.photo.url }}
+              alt="user avatar"
             />
           </View>
           {showText ? (
@@ -185,7 +178,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     width: 270,
   },
-  roomOverview: { paddingLeft: 20, paddingRight: 20 },
+  roomOverview: { paddingLeft: 20, paddingRight: 20, gap: 7 },
   titleAndRating: { gap: 10 },
   ratingContainer: { flexDirection: "row", alignItems: "center", gap: 6 },
   showButton: {

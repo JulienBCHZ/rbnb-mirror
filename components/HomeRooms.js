@@ -13,6 +13,7 @@ import { Link, useRouter } from "expo-router";
 import axios from "axios";
 
 import ActivityIndicatorApp from "./ActivityIndicator";
+import ratingStars from "../utils/ratingStars";
 
 //         setIsLoading={setIsLoading}
 //         data={data}
@@ -87,8 +88,8 @@ const HomeRooms = ({
                   <Text style={styles.textColor}>€</Text>
                 </View>
               </View>
-              <View>
-                <View>
+              <View style={styles.detailsPreview}>
+                <View style={styles.titleAndRating}>
                   <Text
                     style={styles.textTitle}
                     numberOfLines={1}
@@ -96,7 +97,20 @@ const HomeRooms = ({
                   >
                     {item.title}
                   </Text>
+                  <View style={styles.ratingContainer}>
+                    <View>{ratingStars(item.ratingValue)}</View>
+                    {item.reviews > 1 ? (
+                      <Text>{`${item.reviews} reviews`}</Text>
+                    ) : (
+                      <Text>{`${item.reviews} review`}</Text>
+                    )}
+                  </View>
                 </View>
+                <Image
+                  style={styles.ownerAvatar}
+                  source={{ uri: item.user.account.photo.url }}
+                  alt="user avatar"
+                />
               </View>
             </TouchableOpacity>
           );
@@ -112,7 +126,7 @@ const styles = StyleSheet.create({
   previewContainer: {
     gap: 10,
     paddingTop: 10,
-    paddingBottom: 5,
+    paddingBottom: 10,
     borderBottomColor: "lightgrey",
     borderBottomWidth: 2,
   },
@@ -129,5 +143,10 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   textColor: { color: "white", fontWeight: 600 },
-  textTitle: { fontSize: 18, width: 280 },
+
+  detailsPreview: { flexDirection: "row", alignItems: "center", gap: 15 },
+  textTitle: { fontSize: 18, width: 260 },
+  titleAndRating: { gap: 10 },
+  ratingContainer: { flexDirection: "row", alignItems: "center", gap: 6 },
+  ownerAvatar: { height: 70, width: 70, objectFit: "cover", borderRadius: 50 },
 });
