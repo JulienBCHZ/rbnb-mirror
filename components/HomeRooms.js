@@ -100,9 +100,13 @@ const HomeRooms = ({
                   <View style={styles.ratingContainer}>
                     <View>{ratingStars(item.ratingValue)}</View>
                     {item.reviews > 1 ? (
-                      <Text>{`${item.reviews} reviews`}</Text>
+                      <Text
+                        style={{ color: `grey` }}
+                      >{`${item.reviews} reviews`}</Text>
                     ) : (
-                      <Text>{`${item.reviews} review`}</Text>
+                      <Text
+                        style={{ color: `grey` }}
+                      >{`${item.reviews} review`}</Text>
                     )}
                   </View>
                 </View>
