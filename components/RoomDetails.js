@@ -21,6 +21,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 import ActivityIndicatorApp from "./ActivityIndicator";
 import ratingStars from "../utils/ratingStars";
+import ItemLocationMap from "./ItemLocationMap";
 
 const { width } = Dimensions.get("window");
 
@@ -45,7 +46,7 @@ const RoomDetails = ({
           `https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/rooms/${id}`
         );
         if (response.data) {
-          console.log("DATA :", response.data);
+          // console.log("DATA :", response.data);
           setData(response.data);
           setIsLoading(false);
         } else {
@@ -150,6 +151,7 @@ const RoomDetails = ({
           )}
         </View>
       </View>
+      <View>{ItemLocationMap(data)}</View>
     </View>
   );
 };
