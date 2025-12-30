@@ -58,11 +58,11 @@ const RoomDetails = ({
       }
     };
     fetchData();
-    const askPermissionForLocalisation = async () => {
-      const response = await Location.requestForegroundPermissionsAsync();
-      console.log(response.status);
-    };
-    askPermissionForLocalisation();
+    // const askPermissionForLocalisation = async () => {
+    //   const response = await Location.requestForegroundPermissionsAsync();
+    //   console.log(response.status);
+    // };
+    // askPermissionForLocalisation();
   }, []);
   // Dans le swiper intégrer un .map() avec le shéma suivant : <View><Image /></View> pour chaque item
   return isLoading ? (

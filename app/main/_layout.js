@@ -26,20 +26,20 @@ const MainLayout = () => {
         }}
       />
       <Tabs.Screen
+        name="map"
+        options={{
+          title: "Around Me",
+          tabBarIcon: ({ color }) => (
+            <Feather name="map-pin" size={25} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
           title: "Profile",
           tabBarIcon: ({ color }) => (
             <Feather name="user" size={26} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="map"
-        options={{
-          title: "Map",
-          tabBarIcon: ({ color }) => (
-            <Feather name="map-pin" size={25} color={color} />
           ),
         }}
       />

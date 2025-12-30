@@ -14,7 +14,6 @@ export default function MapPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [mapData, setMapData] = useState(null);
-  const [actualPosition, setActualPosition] = useState(null);
 
   return (
     <View style={styles.container}>
@@ -25,8 +24,6 @@ export default function MapPage() {
         setMapData={setMapData}
         errorMessage={errorMessage}
         setErrorMessage={setErrorMessage}
-        actualPosition={actualPosition}
-        setActualPosition={setActualPosition}
       />
     </View>
   );
