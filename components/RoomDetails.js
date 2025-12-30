@@ -4,7 +4,6 @@ import {
   View,
   Pressable,
   TouchableOpacity,
-  FlatList,
   Image,
   Dimensions,
 } from "react-native";
@@ -12,9 +11,7 @@ import { useEffect, useState } from "react";
 import { Link, useRouter } from "expo-router";
 import axios from "axios";
 import Swiper from "react-native-swiper";
-import * as Location from "expo-location";
 
-import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 import ActivityIndicatorApp from "./ActivityIndicator";
@@ -48,6 +45,7 @@ const RoomDetails = ({
           setData(response.data);
           setIsLoading(false);
         } else {
+          setIsLoading(false);
           setErrorMessage("Something went wrong...");
           console.log(response);
         }
@@ -58,15 +56,14 @@ const RoomDetails = ({
       }
     };
     fetchData();
-    // const askPermissionForLocalisation = async () => {
-    //   const response = await Location.requestForegroundPermissionsAsync();
-    //   console.log(response.status);
-    // };
-    // askPermissionForLocalisation();
   }, []);
   // Dans le swiper intégrer un .map() avec le shéma suivant : <View><Image /></View> pour chaque item
   return isLoading ? (
     ActivityIndicatorApp()
+  ) : errorMessage ? (
+    <View style={styles.errorContainer}>
+      <Text>{errorMessage}</Text>
+    </View>
   ) : (
     <View style={styles.roomDetailsContainer}>
       <View style={styles.preview}>
@@ -162,12 +159,14 @@ const RoomDetails = ({
 export default RoomDetails;
 
 const styles = StyleSheet.create({
+  errorContainer: { flex: 1, alignItems: "center", justifyContent: "center" },
   roomDetailsContainer: {
     // flex: 1,
     gap: 10,
     // paddingTop: 15,
     paddingBottom: 5,
   },
+
   swiperTouch: { height: 220, width },
   photo: { height: 200, width, objectFit: "cover" },
   slide: {
