@@ -34,6 +34,7 @@ const MainMap = ({
   setErrorMessage,
 }) => {
   const [actualLocation, setActualLocation] = useState(null);
+  const [finishLoading, setFinishLoading] = useState(false);
 
   useEffect(() => {
     const askPermissionForLocalisation = async () => {
@@ -50,28 +51,7 @@ const MainMap = ({
             longitude: getPosition.coords.longitude,
           };
           setActualLocation(obj);
-
-          try {
-            const response = await axios.get(
-              `https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/rooms/around?latitude=${getPosition.coords.latitude}&longitude=${getPosition.coords.longitude}`
-            );
-
-            if (response.data) {
-              console.log("DATA :", response.data);
-              setMapData(response.data);
-              setIsLoading(false);
-            } else {
-              setErrorMessage(
-                "Something went wrong loading positions around..."
-              );
-              setIsLoading(false);
-              console.log(response);
-            }
-          } catch (error) {
-            setIsLoading(false);
-            setErrorMessage("Something went wrong loading positions around...");
-            console.log(error);
-          }
+          setIsLoading(false);
         }
       } else {
         setIsLoading(false);
@@ -80,6 +60,31 @@ const MainMap = ({
     };
     askPermissionForLocalisation();
   }, []);
+
+  useEffect(() => {
+    const fetchPositions = async () => {
+      try {
+        const response = await axios.get(
+          `https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/rooms/around?latitude=${actualLocation.latitude}&longitude=${actualLocation.longitude}`
+        );
+
+        if (response.data) {
+          console.log("DATA :", response.data);
+          setMapData(response.data);
+          setFinishLoading(true);
+        } else {
+          setErrorMessage("Something went wrong loading positions around...");
+          console.log(response);
+        }
+      } catch (error) {
+        setErrorMessage("Something went wrong loading positions around...");
+        console.log(error);
+      }
+    };
+    if (!isLoading && actualLocation) {
+      fetchPositions();
+    } else return;
+  }, [isLoading, actualLocation]);
 
   return isLoading ? (
     ActivityIndicatorApp()
