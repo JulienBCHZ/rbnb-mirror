@@ -19,14 +19,14 @@ const ItemLocationMap = (room) => {
   console.log("LAT 1:", room.location[1]);
 
   return (
-    <View style={{ width, height: 350 }}>
+    <View style={{ flex: 1 }}>
       <MapView
         style={{ flex: 1 }}
         initialRegion={{
           latitude: room.location[1],
           longitude: room.location[0],
-          latitudeDelta: 0.15,
-          longitudeDelta: 0.15,
+          latitudeDelta: 0.1,
+          longitudeDelta: 0.1,
         }}
         showsUserLocation={false}
       >

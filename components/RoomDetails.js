@@ -151,7 +151,7 @@ const RoomDetails = ({
           )}
         </View>
       </View>
-      <View>{ItemLocationMap(data)}</View>
+      <View style={{ flex: 1 }}>{ItemLocationMap(data)}</View>
     </View>
   );
 };

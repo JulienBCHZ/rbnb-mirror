@@ -83,8 +83,8 @@ const MainMap = ({
     };
     if (!isLoading && actualLocation) {
       fetchPositions();
-    } else return;
-  }, [isLoading, actualLocation]);
+    }
+  }, [actualLocation]);
 
   return isLoading ? (
     ActivityIndicatorApp()
@@ -110,7 +110,21 @@ const MainMap = ({
           }}
           showsUserLocation={true}
         >
-          {mapData.map((room) => {
+          {finishLoading &&
+            mapData?.map((room) => {
+              return (
+                <Marker
+                  key={room._id}
+                  coordinate={{
+                    longitude: room.location[0],
+                    latitude: room.location[1],
+                  }}
+                  title={`${room.price} €`}
+                  description={room.title}
+                />
+              );
+            })}
+          {/* {mapData.map((room) => {
             return (
               <Marker
                 key={room._id}
@@ -122,7 +136,7 @@ const MainMap = ({
                 description={room.title}
               />
             );
-          })}
+          })} */}
         </MapView>
       )}
     </View>
