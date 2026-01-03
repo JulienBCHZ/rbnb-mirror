@@ -41,9 +41,6 @@ export default function LoginPage() {
         if (response.data.token) {
           console.log("RES LOG", response.data);
           login(response.data.id, response.data.token);
-          // setUserToken(response.data.token);
-          // setUserID(response.data._id);
-          // setErrorMessage("Connected !");
         } else {
           setErrorMessage("Wrong email and/or password");
           setIsLoading(false);
