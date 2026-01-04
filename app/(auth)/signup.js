@@ -55,7 +55,7 @@ export default function SignupPage() {
       } catch (error) {
         error.response
           ? setErrorMessage("Wrong email and/or password")
-          : console.log(error.response);
+          : console.log(error);
       }
     }
   };
@@ -172,6 +172,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     borderBottomColor: `#E11960`,
     borderBottomWidth: 1,
+    lineHeight: 32,
   },
 
   submitSection: { gap: 25, alignItems: "center" },

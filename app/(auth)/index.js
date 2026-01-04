@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     borderBottomColor: `#E11960`,
     borderBottomWidth: 1,
+    lineHeight: 34,
   },
 
   submitSection: { gap: 25, alignItems: "center" },

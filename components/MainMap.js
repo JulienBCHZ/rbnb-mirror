@@ -1,6 +1,5 @@
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
-import { Dimensions } from "react-native";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {
@@ -12,18 +11,12 @@ import {
   ActivityIndicator,
   FlatList,
   Image,
+  Dimensions,
 } from "react-native";
 
 import ActivityIndicatorApp from "./ActivityIndicator";
 
 const { width } = Dimensions.get("window");
-
-//  isLoading={isLoading}
-//         setIsLoading={setIsLoading}
-//         mapData={mapData}
-//         setMapData={setMapData}
-//         errorMessage={errorMessage}
-//         setErrorMessage={setErrorMessage}
 
 const MainMap = ({
   isLoading,

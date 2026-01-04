@@ -4,16 +4,21 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import { Link } from "expo-router";
 import axios from "axios";
 import { useContext, useState, useEffect } from "react";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import ActivityIndicatorApp from "../../components/ActivityIndicator";
+import UpdateProfileForm from "../../components/UpdateProfileForm";
 
 import { AuthContext } from "../../context/AuthContext";
+
+const { width } = Dimensions.get("window");
 
 export default function ProfilePage() {
   const { userID, userToken, logout } = useContext(AuthContext);
@@ -24,6 +29,8 @@ export default function ProfilePage() {
   const [description, setDescription] = useState("");
   const [avatar, setAvatar] = useState("");
   const [newAvatar, setNewAvatar] = useState(null);
+  const [updateLoading, setUpdateLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -40,12 +47,12 @@ export default function ProfilePage() {
             setDescription(response.data.description);
           response.data.photo && setAvatar(response.data.photo);
         } else {
-          setErrorMessage("Unauthorized !");
+          setErrorMessage("Error loading your informations !");
           setIsLoading(false);
         }
       } catch (error) {
         error.response
-          ? setErrorMessage("Authentification error !")
+          ? setErrorMessage("Error loading your informations !")
           : console.log("SERVER ERROR :", error);
         setIsLoading(false);
       }
@@ -61,19 +68,43 @@ export default function ProfilePage() {
         {avatar ? (
           <Image
             style={styles.imageAvatar}
-            source={{ uri: avatar }}
+            source={newAvatar ? { uri: newAvatar } : { uri: avatar }}
+            resizeMode="contain"
             alt="avatar"
           />
         ) : (
           <View style={styles.iconAvatar}>
-            <Ionicons name="person" size={80} color="black" />
+            <Ionicons name="person" size={80} color="grey" />
           </View>
         )}
+        <View style={styles.pictureUpdate}>
+          <TouchableOpacity>
+            <MaterialIcons name="photo-library" size={32} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <MaterialIcons name="add-a-photo" size={32} color="black" />
+          </TouchableOpacity>
+        </View>
       </View>
-      <Text style={styles.title}>Profile Page</Text>
-      <TouchableOpacity onPress={logout} style={styles.logoutButton}>
-        <Text style={{ color: `#E11960` }}>Logout</Text>
-      </TouchableOpacity>
+      <UpdateProfileForm
+        email={email}
+        setEmail={setEmail}
+        username={username}
+        setUsername={setUsername}
+        description={description}
+        setDescription={setDescription}
+        newAvatar={newAvatar}
+        setNewAvatar={setNewAvatar}
+        updateLoading={updateLoading}
+        setUpdateLoading={setUpdateLoading}
+        successMessage={successMessage}
+        setSuccessMessage={setSuccessMessage}
+      />
+      <View>
+        <TouchableOpacity onPress={logout} style={styles.logoutButton}>
+          <Text style={{ color: `#E11960` }}>Logout</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -81,9 +112,9 @@ export default function ProfilePage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center",
-    gap: 20,
+    backgroundColor: `white`,
   },
   title: {
     fontSize: 24,
@@ -99,6 +130,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  avatarSection: {
+    flexDirection: "row",
+    gap: 20,
+    paddingLeft: width / 8,
+  },
+  imageAvatar: {
+    width: 150,
+    height: 150,
+    borderRadius: 90,
+    borderWidth: 1,
+    borderColor: `#E11960`,
+  },
   iconAvatar: {
     width: 150,
     height: 150,
@@ -106,5 +149,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 90,
+    borderWidth: 1,
+    borderColor: `#E11960`,
   },
+  pictureUpdate: { justifyContent: "space-around" },
 });
