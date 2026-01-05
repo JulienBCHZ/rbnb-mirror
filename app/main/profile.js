@@ -30,7 +30,7 @@ export default function ProfilePage() {
   const [avatar, setAvatar] = useState("");
   const [newAvatar, setNewAvatar] = useState(null);
   const [updateLoading, setUpdateLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
+  const [updateMessage, setUpdateMessage] = useState("");
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -79,10 +79,10 @@ export default function ProfilePage() {
         )}
         <View style={styles.pictureUpdate}>
           <TouchableOpacity>
-            <MaterialIcons name="photo-library" size={32} color="black" />
+            <MaterialIcons name="photo-library" size={32} color="grey" />
           </TouchableOpacity>
           <TouchableOpacity>
-            <MaterialIcons name="add-a-photo" size={32} color="black" />
+            <MaterialIcons name="add-a-photo" size={32} color="grey" />
           </TouchableOpacity>
         </View>
       </View>
@@ -98,8 +98,10 @@ export default function ProfilePage() {
         setNewAvatar={setNewAvatar}
         updateLoading={updateLoading}
         setUpdateLoading={setUpdateLoading}
-        successMessage={successMessage}
-        setSuccessMessage={setSuccessMessage}
+        updateMessage={updateMessage}
+        setUpdateMessage={setUpdateMessage}
+        errorMessage={errorMessage}
+        setErrorMessage={setErrorMessage}
         userToken={userToken}
       />
       <View>

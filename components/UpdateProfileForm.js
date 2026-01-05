@@ -19,6 +19,8 @@ import axios from "axios";
 //     setUpdateLoading={setUpdateLoading}
 // updateMessage={updateMessage}
 //     setUpdateMessage={setUpdateMessage}
+//  errorMessage={errorMessage}
+//       setErrorMessage={setErrorMessage}
 
 const UpdateProfileForm = ({
   email,
@@ -34,6 +36,8 @@ const UpdateProfileForm = ({
   setUpdateLoading,
   updateMessage,
   setUpdateMessage,
+  errorMessage,
+  setErrorMessage,
   userToken,
 }) => {
   const handleSubmitUpdate = async (event) => {
@@ -108,7 +112,7 @@ const UpdateProfileForm = ({
             console.log("INFO RETURN :", infoResponse.data);
             setEmail(infoResponse.data.email);
             setUsername(infoResponse.data.username);
-            setDescription(infoResponse.data.username);
+            setDescription(infoResponse.data.description);
             setUpdateLoading(false);
             setUpdateMessage("Profile successfully updated !");
           } else {
@@ -158,10 +162,33 @@ const UpdateProfileForm = ({
           style={styles.inputDescription}
         />
       </View>
+
+      <View>
+        {errorMessage && (
+          <View>
+            <Text styles={{ color: "red" }}>{errorMessage}</Text>
+          </View>
+        )}
+        {updateMessage && (
+          <View>
+            <Text>{updateMessage}</Text>
+          </View>
+        )}
+      </View>
+
       <View style={styles.buttonSection}>
-        <TouchableOpacity style={styles.updateButton}>
-          <Text style={{ color: `#E11960` }}>Update</Text>
-        </TouchableOpacity>
+        {updateLoading ? (
+          <View style={styles.updateDisabled}>
+            <Text style={styles.updateDisabledText}>Update</Text>
+          </View>
+        ) : (
+          <TouchableOpacity
+            style={styles.updateButton}
+            onPress={handleSubmitUpdate}
+          >
+            <Text style={{ color: `#E11960` }}>Update</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -201,4 +228,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  updateDisabled: {
+    backgroundColor: `white`,
+    borderWidth: 3,
+    borderColor: "lightgrey",
+    width: 150,
+    height: 50,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  updateDisabledText: { color: "lightgrey" },
 });
