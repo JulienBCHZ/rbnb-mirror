@@ -93,12 +93,14 @@ export default function ProfilePage() {
         setUsername={setUsername}
         description={description}
         setDescription={setDescription}
+        setAvatar={setAvatar}
         newAvatar={newAvatar}
         setNewAvatar={setNewAvatar}
         updateLoading={updateLoading}
         setUpdateLoading={setUpdateLoading}
         successMessage={successMessage}
         setSuccessMessage={setSuccessMessage}
+        userToken={userToken}
       />
       <View>
         <TouchableOpacity onPress={logout} style={styles.logoutButton}>
