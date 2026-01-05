@@ -5,10 +5,12 @@ import {
   TextInput,
   TouchableOpacity,
   Dimensions,
+  Image,
 } from "react-native";
 import { Link } from "expo-router";
 import axios from "axios";
 import { useContext, useState, useEffect } from "react";
+import * as ImagePicker from "expo-image-picker";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -45,14 +47,14 @@ export default function ProfilePage() {
           response.data.username && setUsername(response.data.username);
           response.data.description &&
             setDescription(response.data.description);
-          response.data.photo && setAvatar(response.data.photo);
+          response.data.photo && setAvatar(response.data.photo.url);
         } else {
-          setErrorMessage("Error loading your informations !");
+          alert("Error loading your informations !");
           setIsLoading(false);
         }
       } catch (error) {
         error.response
-          ? setErrorMessage("Error loading your informations !")
+          ? alert("Error loading your informations !")
           : console.log("SERVER ERROR :", error);
         setIsLoading(false);
       }
@@ -62,13 +64,46 @@ export default function ProfilePage() {
     }
   }, [updateMessage]);
 
+  const handleAccessGalery = () => {
+    const getPermissionAndGetPicture = async () => {
+      //Demander le droit d'accéder à la galerie
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+      if (status === "granted") {
+        //Ouvrir la galerie photo
+        const result = await ImagePicker.launchImageLibraryAsync({
+          allowsEditing: true,
+          aspect: [1, 1],
+        });
+
+        if (result.canceled === true) {
+          alert("No picture selected");
+        } else {
+          setNewAvatar(result.assets[0].uri);
+          console.log("URI :", result.assets[0].uri);
+        }
+      } else {
+        alert("Permission denied");
+      }
+    };
+    getPermissionAndGetPicture();
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.avatarSection}>
-        {avatar ? (
+        {newAvatar ? (
           <Image
             style={styles.imageAvatar}
-            source={newAvatar ? { uri: newAvatar } : { uri: avatar }}
+            source={{ uri: newAvatar }}
+            resizeMode="contain"
+            alt="avatar"
+          />
+        ) : avatar ? (
+          <Image
+            style={styles.imageAvatar}
+            source={{ uri: avatar }}
             resizeMode="contain"
             alt="avatar"
           />
@@ -77,8 +112,20 @@ export default function ProfilePage() {
             <Ionicons name="person" size={80} color="grey" />
           </View>
         )}
+        {/* {avatar ? (
+          <Image
+            style={styles.imageAvatar}
+            source={{ uri: avatar }}
+            resizeMode="contain"
+            alt="avatar"
+          />
+        ) : (
+          <View style={styles.iconAvatar}>
+            <Ionicons name="person" size={80} color="grey" />
+          </View>
+        )} */}
         <View style={styles.pictureUpdate}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleAccessGalery}>
             <MaterialIcons name="photo-library" size={32} color="grey" />
           </TouchableOpacity>
           <TouchableOpacity>

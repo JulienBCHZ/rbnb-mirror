@@ -46,11 +46,16 @@ const UpdateProfileForm = ({
     let infoResponse;
     let avatarResponse;
     if (!email || !username || !description) {
-      setErrorMessage("Field(s) missing !");
+      alert("Field(s) missing !");
     } else {
       if (newAvatar) {
+        const tab = newAvatar.split(".");
         const formData = new FormData();
-        formData.append("picture", newAvatar);
+        formData.append("photo", {
+          uri: newAvatar,
+          name: `avatar.${tab[tab.length - 1]}`,
+          type: `image/${tab[tab.length - 1]}`,
+        });
 
         const putInfo = async () => {
           try {
@@ -61,15 +66,15 @@ const UpdateProfileForm = ({
             );
             if (infoResponse.data) {
               console.log("INFO RETURN :", infoResponse.data);
-              setEmail(infoResponse.data.email);
-              setUsername(infoResponse.data.username);
-              setDescription(infoResponse.data.username);
+              // setEmail(infoResponse.data.email);
+              // setUsername(infoResponse.data.username);
+              // setDescription(infoResponse.data.description);
             } else {
               console.log("ELSE IR :", infoResponse);
             }
           } catch (error) {
             error.response
-              ? setErrorMessage(`Something went wrong : ${error.response}`)
+              ? alert(`Something went wrong : ${error.response}`)
               : console.log("SERVER ERROR INFOS :", error);
           }
         };
@@ -82,13 +87,13 @@ const UpdateProfileForm = ({
             );
             if (avatarResponse.data) {
               console.log("AVATAR RETURN :", avatarResponse.data);
-              setAvatar(avatarResponse.data.url);
+              // setAvatar(avatarResponse.data.photo.url);
             } else {
               console.log("ELSE AR :", avatarResponse);
             }
           } catch (error) {
             error.response
-              ? setErrorMessage(`Something went wrong : ${error.response}`)
+              ? alert(`Something went wrong : ${error.response}`)
               : console.log("SERVER ERROR AVATAR :", error);
           }
         };
@@ -97,9 +102,13 @@ const UpdateProfileForm = ({
         if (p) {
           setUpdateLoading(false);
           setUpdateMessage("Profile successfully updated !");
+          setNewAvatar(null);
+          alert("Profile successfully updated !");
         } else {
           setUpdateLoading(false);
           setUpdateMessage("Profile has NOT been updated !");
+          setNewAvatar(null);
+          alert("Profile has NOT been updated !");
         }
       } else {
         try {
@@ -115,19 +124,21 @@ const UpdateProfileForm = ({
             // setDescription(infoResponse.data.description);
             setUpdateLoading(false);
             setUpdateMessage("Profile successfully updated !");
+            alert("Profile successfully updated !");
           } else {
             console.log("ELSE IR :", infoResponse);
             setUpdateLoading(false);
             setUpdateMessage("Profile has NOT been updated !");
+            alert("Profile has NOT been updated !");
           }
         } catch (error) {
           if (error.response) {
-            setErrorMessage(`Something went wrong : ${error.response}`);
+            alert(`Something went wrong : ${error.response}`);
             setUpdateLoading(false);
             setUpdateMessage("Profile has NOT been updated !");
           } else {
             console.log("SERVER ERROR INFOS :", error);
-            setErrorMessage(`Something went wrong...`);
+            alert(`Something went wrong...`);
             setUpdateLoading(false);
             setUpdateMessage("Profile has NOT been updated !");
           }
@@ -163,15 +174,12 @@ const UpdateProfileForm = ({
         />
       </View>
       <View>
-        {errorMessage && (
-          <View>
-            <Text styles={{ color: "red" }}>{errorMessage}</Text>
+        {!email || !username || !description ? (
+          <View style={{ height: 16 }}>
+            <Text style={{ color: "red" }}>Field(s) missing !</Text>
           </View>
-        )}
-        {updateMessage && (
-          <View>
-            <Text>{updateMessage}</Text>
-          </View>
+        ) : (
+          <View style={{ height: 16 }}></View>
         )}
       </View>
 
