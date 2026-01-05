@@ -110,9 +110,9 @@ const UpdateProfileForm = ({
           );
           if (infoResponse.data) {
             console.log("INFO RETURN :", infoResponse.data);
-            setEmail(infoResponse.data.email);
-            setUsername(infoResponse.data.username);
-            setDescription(infoResponse.data.description);
+            // setEmail(infoResponse.data.email);
+            // setUsername(infoResponse.data.username);
+            // setDescription(infoResponse.data.description);
             setUpdateLoading(false);
             setUpdateMessage("Profile successfully updated !");
           } else {
@@ -162,7 +162,6 @@ const UpdateProfileForm = ({
           style={styles.inputDescription}
         />
       </View>
-
       <View>
         {errorMessage && (
           <View>

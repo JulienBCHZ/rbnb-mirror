@@ -60,7 +60,7 @@ export default function ProfilePage() {
     if (userID && userToken) {
       fetchProfileData();
     }
-  }, []);
+  }, [updateMessage]);
 
   return (
     <View style={styles.container}>
