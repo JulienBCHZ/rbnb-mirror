@@ -51,15 +51,15 @@ Cette approche permet :
 
 ```
 app/
-├── \_layout.js (Stack layout)
+├── layout.js (Stack layout)
 ├── (auth)/
-│ ├── \_layout.js (Stack layout)
+│ ├── layout.js (Stack layout)
 │ ├── index.js
 │ └── signup.js
 └── main/
-├── \_layout.js (Tabs layout)
+├── layout.js (Tabs layout)
 ├── home/
-│ ├── \_layout.js (Stack layout)
+│ ├── layout.js (Stack layout)
 │ ├── rooms.js
 │ ├── rooms.js
 │ └── pictures.js
