@@ -52,7 +52,7 @@ const UpdateProfileForm = ({
             }
           } catch (error) {
             error.response
-              ? alert(`Something went wrong : ${error.response}`)
+              ? alert(`Something went wrong : ${error.response.data.message}`)
               : console.log("SERVER ERROR INFOS :", error);
           }
         };
@@ -70,7 +70,7 @@ const UpdateProfileForm = ({
             }
           } catch (error) {
             error.response
-              ? alert(`Something went wrong : ${error.response}`)
+              ? alert(`Something went wrong : ${error.response.data.message}`)
               : console.log("SERVER ERROR AVATAR :", error);
           }
         };
@@ -109,7 +109,10 @@ const UpdateProfileForm = ({
           setUpdateLoading(false);
           setUpdateMessage("Profile has NOT been updated !");
           if (error.response) {
-            alert(`Profile has NOT been updated : ${error.response}`);
+            console.log("UPDATE ERROR : ", error.response);
+            alert(
+              `Profile has NOT been updated : ${error.response.data.message}`
+            );
           } else {
             console.log("SERVER ERROR INFOS :", error);
             alert(`Profile has NOT been updated...`);

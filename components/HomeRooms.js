@@ -33,7 +33,8 @@ const HomeRooms = ({ isLoading, setIsLoading, data, setData }) => {
       } catch (error) {
         setIsLoading(false);
         if (error.response) {
-          alert(`Something went wrong : ${error.response}`);
+          console.log("ROOMS ERROR : ", error.response);
+          alert(`Something went wrong : ${error.response.data.message}`);
         } else {
           alert("Something went wrong...");
           console.log("RR SERVER ERROR : ", error);

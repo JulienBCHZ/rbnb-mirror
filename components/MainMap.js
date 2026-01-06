@@ -52,9 +52,9 @@ const MainMap = ({ isLoading, setIsLoading, mapData, setMapData }) => {
         }
       } catch (error) {
         setFinishLoading(true);
-        if (error.message) {
-          console.log("ERROR MSG: ", error.message);
-          alert(`Something went wrong : ${error.message}`);
+        if (error.response) {
+          console.log("ERROR MSG: ", error.response);
+          alert(`Something went wrong : ${error.response.data.message}`);
         } else {
           alert("Something went wrong loading locations around you");
           console.log("ERROR : ", error);

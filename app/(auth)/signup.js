@@ -54,7 +54,7 @@ export default function SignupPage() {
         }
       } catch (error) {
         if (error.response) {
-          alert(`Something went wrong : ${error.response}`);
+          alert(`Something went wrong : ${error.response.data.message}`);
           setIsLoading(false);
         } else {
           alert(`Something went wrong...`);
