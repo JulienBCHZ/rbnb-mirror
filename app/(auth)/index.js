@@ -30,7 +30,7 @@ export default function LoginPage() {
     event.preventDefault();
     let response;
     if (!password || !email) {
-      setErrorMessage("Field(s) missing !");
+      alert("Email or password missing");
     } else {
       setIsLoading(true);
       try {
@@ -42,12 +42,12 @@ export default function LoginPage() {
           console.log("RES LOG", response.data);
           login(response.data.id, response.data.token);
         } else {
-          setErrorMessage("Wrong email and/or password");
+          alert("Something went wrong...");
           setIsLoading(false);
         }
       } catch (error) {
         error.response
-          ? setErrorMessage("Wrong email and/or password")
+          ? alert("Wrong email and/or password")
           : console.log(error);
         setIsLoading(false);
       }
@@ -55,10 +55,7 @@ export default function LoginPage() {
   };
 
   return (
-    <KeyboardAwareScrollView
-      style={styles.container}
-      contentContainerStyle={styles.container}
-    >
+    <KeyboardAwareScrollView contentContainerStyle={styles.container}>
       <View style={styles.pageVision}>
         <View style={styles.logoTitle}>
           <FontAwesome5 name="airbnb" size={100} color="#E11960" />
@@ -81,9 +78,6 @@ export default function LoginPage() {
           />
         </View>
         <View style={styles.submitSection}>
-          {errorMessage && (
-            <Text style={styles.errorMessage}>{errorMessage}</Text>
-          )}
           {isLoading ? (
             <View style={styles.submitDisabled}>
               <Text style={styles.submitDisabledText}>Login</Text>
@@ -93,9 +87,6 @@ export default function LoginPage() {
               <Text style={styles.submitText}>Login</Text>
             </TouchableOpacity>
           )}
-          {/* <TouchableOpacity style={styles.loginSubmit} onPress={handleSubmit}>
-            <Text style={styles.submitText}>Login</Text>
-          </TouchableOpacity> */}
           <Link href="/signup" replace>
             Pas encore de compte ? Inscrivez-vous.
           </Link>
@@ -133,7 +124,7 @@ const styles = StyleSheet.create({
     lineHeight: 34,
   },
 
-  submitSection: { gap: 25, alignItems: "center" },
+  submitSection: { gap: 25, alignItems: "center", paddingBottom: 30 },
   loginSubmit: {
     borderWidth: 3,
     borderColor: `#E11960`,

@@ -7,7 +7,7 @@ import {
   Dimensions,
   Image,
 } from "react-native";
-import { Link } from "expo-router";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
 import { useContext, useState, useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
@@ -49,13 +49,16 @@ export default function ProfilePage() {
           response.data.photo && setAvatar(response.data.photo.url);
           setIsLoading(false);
         } else {
-          alert("Error loading your informations !");
+          alert("Error loading your informations...");
           setIsLoading(false);
         }
       } catch (error) {
-        error.response
-          ? alert("Error loading your informations !")
-          : console.log("SERVER ERROR :", error);
+        if (error.response) {
+          alert(`Error loading your informations : ${error.response}`);
+        } else {
+          alert("Error loading your informations...");
+          console.log("SERVER ERROR :", error);
+        }
         setIsLoading(false);
       }
     };
@@ -106,7 +109,7 @@ export default function ProfilePage() {
   return isLoading ? (
     ActivityIndicatorApp()
   ) : (
-    <View style={styles.container}>
+    <KeyboardAwareScrollView contentContainerStyle={styles.container}>
       <View style={styles.avatarSection}>
         {newAvatar ? (
           <Image
@@ -156,7 +159,7 @@ export default function ProfilePage() {
           <Text style={{ color: `#E11960` }}>Logout</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 }
 

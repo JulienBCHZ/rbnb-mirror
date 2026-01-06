@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Link, useRouter, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 
@@ -19,15 +13,12 @@ export default function RoomPage() {
   const params = useLocalSearchParams();
   return (
     <View style={styles.container}>
-      {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
       <RoomDetails
         id={params.id}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
         data={data}
         setData={setData}
-        errorMessage={errorMessage}
-        setErrorMessage={setErrorMessage}
       />
     </View>
   );

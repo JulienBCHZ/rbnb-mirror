@@ -20,15 +20,7 @@ import ItemLocationMap from "./ItemLocationMap";
 
 const { width } = Dimensions.get("window");
 
-const RoomDetails = ({
-  id,
-  isLoading,
-  setIsLoading,
-  data,
-  setData,
-  errorMessage,
-  setErrorMessage,
-}) => {
+const RoomDetails = ({ id, isLoading, setIsLoading, data, setData }) => {
   const router = useRouter();
   const [showText, setShowText] = useState(false);
 
@@ -46,13 +38,17 @@ const RoomDetails = ({
           setIsLoading(false);
         } else {
           setIsLoading(false);
-          setErrorMessage("Something went wrong...");
-          console.log(response);
+          alert("Something went wrong...");
+          console.log("RD : ", response);
         }
       } catch (error) {
         setIsLoading(false);
-        setErrorMessage("Something went wrong...");
-        console.log(error);
+        if (error.response) {
+          alert(`Something went wrong : ${error.response}`);
+        } else {
+          alert("Something went wrong...");
+          console.log("RR SERVER ERROR : ", error);
+        }
       }
     };
     fetchData();
@@ -60,10 +56,6 @@ const RoomDetails = ({
   // Dans le swiper intégrer un .map() avec le shéma suivant : <View><Image /></View> pour chaque item
   return isLoading ? (
     ActivityIndicatorApp()
-  ) : errorMessage ? (
-    <View style={styles.errorContainer}>
-      <Text>{errorMessage}</Text>
-    </View>
   ) : (
     <View style={styles.roomDetailsContainer}>
       <View style={styles.preview}>

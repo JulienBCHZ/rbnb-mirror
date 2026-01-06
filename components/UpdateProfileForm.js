@@ -79,14 +79,14 @@ const UpdateProfileForm = ({
         const p = await Promise.all(putInfo(), putAvatar());
         if (p) {
           setUpdateLoading(false);
-          setUpdateMessage("Profile successfully updated !");
+          setUpdateMessage("Profile successfully updated");
           setNewAvatar(null);
-          alert("Profile successfully updated !");
+          alert("Profile successfully updated");
         } else {
           setUpdateLoading(false);
-          setUpdateMessage("Profile has NOT been updated !");
+          setUpdateMessage("Profile has NOT been updated");
           setNewAvatar(null);
-          alert("Profile has NOT been updated !");
+          alert("Profile has NOT been updated");
         }
       } else {
         try {
@@ -98,24 +98,22 @@ const UpdateProfileForm = ({
           if (infoResponse.data) {
             console.log("INFO RETURN :", infoResponse.data);
             setUpdateLoading(false);
-            setUpdateMessage("Profile successfully updated !");
-            alert("Profile successfully updated !");
+            setUpdateMessage("Profile successfully updated");
+            alert("Profile successfully updated");
           } else {
             console.log("ELSE IR :", infoResponse);
             setUpdateLoading(false);
-            setUpdateMessage("Profile has NOT been updated !");
-            alert("Profile has NOT been updated !");
+            setUpdateMessage("Profile has NOT been updated...");
+            alert("Profile has NOT been updated...");
           }
         } catch (error) {
+          setUpdateLoading(false);
+          setUpdateMessage("Profile has NOT been updated !");
           if (error.response) {
-            alert(`Something went wrong : ${error.response}`);
-            setUpdateLoading(false);
-            setUpdateMessage("Profile has NOT been updated !");
+            alert(`Profile has NOT been updated : ${error.response}`);
           } else {
             console.log("SERVER ERROR INFOS :", error);
-            alert(`Something went wrong...`);
-            setUpdateLoading(false);
-            setUpdateMessage("Profile has NOT been updated !");
+            alert(`Profile has NOT been updated...`);
           }
         }
       }

@@ -21,7 +21,6 @@ export default function SignupPage() {
   const [description, setDescription] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const { login } = useContext(AuthContext);
@@ -30,10 +29,11 @@ export default function SignupPage() {
     event.preventDefault();
     let response;
     if (!password || !email || !username || !description) {
-      setErrorMessage("Field(s) missing !");
+      alert("All fields are required");
     } else if (confirmPassword !== password) {
-      setErrorMessage("Passwords must be the same !");
+      alert("Passwords must be the same");
     } else {
+      setIsLoading(true);
       try {
         response = await axios.post(
           "https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/user/sign_up",
@@ -47,15 +47,20 @@ export default function SignupPage() {
         if (response.data.token) {
           // console.log("RES", response.data);
           login(response.data.id, response.data.token);
-          // setToken(response.data.token);
-          setErrorMessage("");
+          setIsLoading(false);
         } else {
-          setErrorMessage("Check all fields !");
+          alert("Something went wrong...");
+          setIsLoading(false);
         }
       } catch (error) {
-        error.response
-          ? setErrorMessage("Wrong email and/or password")
-          : console.log(error);
+        if (error.response) {
+          alert(`Something went wrong : ${error.response}`);
+          setIsLoading(false);
+        } else {
+          alert(`Something went wrong...`);
+          setIsLoading(false);
+          console.log("SERVER ERROR : ", error);
+        }
       }
     }
   };
@@ -88,8 +93,10 @@ export default function SignupPage() {
           <TextInput
             placeholder="description"
             value={description}
+            multiline={true}
+            textAlignVertical="top"
             onChangeText={setDescription}
-            style={styles.input}
+            style={styles.inputDescription}
           />
           <TextInput
             placeholder="password"
@@ -124,9 +131,6 @@ export default function SignupPage() {
           />
         </View>
         <View style={styles.submitSection}>
-          {errorMessage && (
-            <Text style={styles.errorMessage}>{errorMessage}</Text>
-          )}
           {isLoading ? (
             <View style={styles.submitDisabled}>
               <Text style={styles.submitDisabledText}>Login</Text>
@@ -136,9 +140,6 @@ export default function SignupPage() {
               <Text style={styles.submitText}>Signup</Text>
             </TouchableOpacity>
           )}
-          {/* <TouchableOpacity style={styles.loginSubmit} onPress={handleSubmit}>
-            <Text style={styles.submitText}>Login</Text>
-          </TouchableOpacity> */}
           <Link href="/" replace>
             Déjà un compte ? Connectez-vous.
           </Link>
@@ -158,14 +159,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: `#fff`,
-    paddingVertical: 50,
+    paddingVertical: 20,
     paddingHorizontal: 2,
   },
 
   logoTitle: { alignItems: "center", gap: 10 },
   title: { fontSize: 24, fontWeight: 600, color: `grey` },
 
-  inputSection: { gap: 20 },
+  inputSection: { gap: 25 },
   input: {
     width: 300,
     height: 34,
@@ -174,8 +175,18 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     lineHeight: 32,
   },
+  inputDescription: {
+    width: 300,
+    height: 100,
+    fontSize: 24,
+    lineHeight: 26,
+    borderColor: `#E11960`,
+    borderWidth: 1,
+    paddingLeft: 3,
+    paddingRight: 3,
+  },
 
-  submitSection: { gap: 25, alignItems: "center" },
+  submitSection: { gap: 25, alignItems: "center", paddingBottom: 25 },
   loginSubmit: {
     borderWidth: 3,
     borderColor: `#E11960`,

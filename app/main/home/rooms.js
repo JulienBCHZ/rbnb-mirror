@@ -1,18 +1,7 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  ActivityIndicator,
-  FlatList,
-  Image,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useState } from "react";
 import { Link, useRouter } from "expo-router";
-import axios from "axios";
 
-import ActivityIndicatorApp from "../../../components/ActivityIndicator";
 import HomeRooms from "../../../components/HomeRooms";
 
 export default function RoomsPage() {
@@ -24,14 +13,11 @@ export default function RoomsPage() {
 
   return (
     <View style={styles.container}>
-      {errorMessage && <Text>{errorMessage}</Text>}
       <HomeRooms
         isLoading={isLoading}
         setIsLoading={setIsLoading}
         data={data}
         setData={setData}
-        errorMessage={errorMessage}
-        setErrorMessage={setErrorMessage}
       />
     </View>
   );

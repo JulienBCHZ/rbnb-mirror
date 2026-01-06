@@ -13,20 +13,7 @@ import axios from "axios";
 import ActivityIndicatorApp from "./ActivityIndicator";
 import ratingStars from "../utils/ratingStars";
 
-//         setIsLoading={setIsLoading}
-//         data={data}
-//         setData={setData}
-//   errorMessage={errorMessage}
-//         setErrorMessage={setErrorMessage}
-
-const HomeRooms = ({
-  isLoading,
-  setIsLoading,
-  data,
-  setData,
-  errorMessage,
-  setErrorMessage,
-}) => {
+const HomeRooms = ({ isLoading, setIsLoading, data, setData }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -40,13 +27,17 @@ const HomeRooms = ({
           setData(response.data);
           setIsLoading(false);
         } else {
-          setErrorMessage("Something went wrong...");
-          console.log(response);
+          alert("Something went wrong...");
+          console.log("RR : ", response);
         }
       } catch (error) {
         setIsLoading(false);
-        setErrorMessage("Something went wrong...");
-        console.log(error);
+        if (error.response) {
+          alert(`Something went wrong : ${error.response}`);
+        } else {
+          alert("Something went wrong...");
+          console.log("RR SERVER ERROR : ", error);
+        }
       }
     };
     fetchData();
@@ -56,7 +47,6 @@ const HomeRooms = ({
     ActivityIndicatorApp()
   ) : (
     <View>
-      {/* <Text>Coucou</Text> */}
       <FlatList
         contentContainerStyle={{
           gap: 10,
