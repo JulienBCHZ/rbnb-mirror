@@ -1,7 +1,6 @@
 # 🏠 AirBnB Clone – Application Mobile
 
 ![Demo GIF](public/App_AirBnb_demo.gif)
-![Room Screen](public/Screenshot-RoomDetails-screen.png)
 
 Application mobile développée avec **React Native** et **Expo**, inspirée de l’application **AirBnB**.  
 Ce projet a pour objectif de reproduire les principales fonctionnalités de navigation et d’authentification d’une application de location d’appartements.
@@ -109,6 +108,7 @@ Scanner le QR Code affiché dans le terminal avec un appareil iOS ou Android pou
 - Implémenter une authentification avec avec **React createContext**
 - Gérer la navigation entre plusieurs écrans
 - Intégrer une carte interactive
+- Accéder à la galerie photo et à la caméra de l'appareil
 - Reproduire une application mobile connue avec une architecture claire
 
 ---
