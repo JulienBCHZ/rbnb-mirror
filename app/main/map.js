@@ -1,18 +1,10 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
-import { Link } from "expo-router";
+import { StyleSheet, Text, View } from "react-native";
 import { useState } from "react";
 
 import MainMap from "../../components/MainMap";
 
 export default function MapPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
   const [mapData, setMapData] = useState(null);
 
   return (
@@ -22,8 +14,6 @@ export default function MapPage() {
         setIsLoading={setIsLoading}
         mapData={mapData}
         setMapData={setMapData}
-        errorMessage={errorMessage}
-        setErrorMessage={setErrorMessage}
       />
     </View>
   );

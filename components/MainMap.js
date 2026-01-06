@@ -2,30 +2,11 @@ import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  ActivityIndicator,
-  FlatList,
-  Image,
-  Dimensions,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import ActivityIndicatorApp from "./ActivityIndicator";
 
-const { width } = Dimensions.get("window");
-
-const MainMap = ({
-  isLoading,
-  setIsLoading,
-  mapData,
-  setMapData,
-  errorMessage,
-  setErrorMessage,
-}) => {
+const MainMap = ({ isLoading, setIsLoading, mapData, setMapData }) => {
   const [actualLocation, setActualLocation] = useState(null);
   const [finishLoading, setFinishLoading] = useState(false);
 
@@ -48,7 +29,7 @@ const MainMap = ({
         }
       } else {
         setIsLoading(false);
-        setErrorMessage("Permission denied...");
+        alert("Permission denied - check your settings");
       }
     };
     askPermissionForLocalisation();
@@ -66,12 +47,18 @@ const MainMap = ({
           setMapData(response.data);
           setFinishLoading(true);
         } else {
-          setErrorMessage("Something went wrong loading positions around...");
+          alert("Something went wrong loading locations around you");
           console.log(response);
         }
       } catch (error) {
-        setErrorMessage("Something went wrong loading positions around...");
-        console.log(error);
+        setFinishLoading(true);
+        if (error.message) {
+          console.log("ERROR MSG: ", error.message);
+          alert(`Something went wrong : ${error.message}`);
+        } else {
+          alert("Something went wrong loading locations around you");
+          console.log("ERROR : ", error);
+        }
       }
     };
     if (!isLoading && actualLocation) {
@@ -83,41 +70,18 @@ const MainMap = ({
     ActivityIndicatorApp()
   ) : (
     <View style={{ flex: 1 }}>
-      {errorMessage ? (
-        <View style={styles.errorContainer}>
-          <Text
-            style={styles.errorText}
-          >{`${errorMessage}. Check your location permissions 👇`}</Text>
-          <TouchableOpacity style={styles.permissionButton}>
-            <Text style={{ color: `#E11960` }}>Go to Settings</Text>
-          </TouchableOpacity>
-        </View>
-      ) : (
-        <MapView
-          style={{ flex: 1 }}
-          initialRegion={{
-            latitude: actualLocation.latitude,
-            longitude: actualLocation.longitude,
-            latitudeDelta: 0.15,
-            longitudeDelta: 0.15,
-          }}
-          showsUserLocation={true}
-        >
-          {finishLoading &&
-            mapData?.map((room) => {
-              return (
-                <Marker
-                  key={room._id}
-                  coordinate={{
-                    longitude: room.location[0],
-                    latitude: room.location[1],
-                  }}
-                  title={`${room.price} €`}
-                  description={room.title}
-                />
-              );
-            })}
-          {/* {mapData.map((room) => {
+      <MapView
+        style={{ flex: 1 }}
+        initialRegion={{
+          latitude: actualLocation.latitude,
+          longitude: actualLocation.longitude,
+          latitudeDelta: 0.15,
+          longitudeDelta: 0.15,
+        }}
+        showsUserLocation={true}
+      >
+        {finishLoading &&
+          mapData?.map((room) => {
             return (
               <Marker
                 key={room._id}
@@ -129,33 +93,10 @@ const MainMap = ({
                 description={room.title}
               />
             );
-          })} */}
-        </MapView>
-      )}
+          })}
+      </MapView>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  errorContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 20,
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-  permissionButton: {
-    backgroundColor: `white`,
-    borderWidth: 3,
-    borderColor: `#E11960`,
-    width: 200,
-    height: 50,
-    borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  errorText: { fontSize: 16, fontWeight: "bold" },
-});
 
 export default MainMap;
