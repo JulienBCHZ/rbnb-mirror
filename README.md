@@ -49,6 +49,7 @@ Cette approche permet :
 
 ## 📂 Structure du projet
 
+```
 app/
 ├── \_layout.js (Stack layout)
 ├── (auth)/
@@ -64,6 +65,7 @@ app/
 │ └── pictures.js
 ├── map.js
 └── profile.js
+```
 
 ---
 
@@ -97,7 +99,7 @@ npx expo
 yarn start
 ```
 
-Appuyer sur la touche `i`pour lancer un simulateur iOS ou appuyer sur la `a`pour lancer un simulateur Android.
+Appuyer sur la touche `i` pour lancer un simulateur iOS ou appuyer sur la `a` pour lancer un simulateur Android.
 Scanner le QR Code affiché dans le terminal avec un appareil iOS ou Android pour ouvrir l'application Expo Go.
 
 ---
