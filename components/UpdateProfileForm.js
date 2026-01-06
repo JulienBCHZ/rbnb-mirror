@@ -18,7 +18,6 @@ const UpdateProfileForm = ({
   setNewAvatar,
   updateLoading,
   setUpdateLoading,
-  updateMessage,
   setUpdateMessage,
   userToken,
 }) => {

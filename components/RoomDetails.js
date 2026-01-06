@@ -157,9 +157,7 @@ export default RoomDetails;
 const styles = StyleSheet.create({
   errorContainer: { flex: 1, alignItems: "center", justifyContent: "center" },
   roomDetailsContainer: {
-    // flex: 1,
     gap: 10,
-    // paddingTop: 15,
     paddingBottom: 5,
   },
 
