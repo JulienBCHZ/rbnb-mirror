@@ -1,4 +1,4 @@
-# 🏠 AirBnB Clone – Application Mobile
+# 🏠 AirBnB Clone – Application Mobile 🏠
 
 ![Demo GIF](public/App_AirBnb_demo.gif)
 
