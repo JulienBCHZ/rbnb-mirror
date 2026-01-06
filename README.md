@@ -123,6 +123,6 @@ Ce projet est fourni à des fins éducatives. Il n’est pas destiné à un usag
 
 ## 📡 Contact
 
-Julien Bouchez : julienbouchez@icloud.com
-Profile GitHub : [@JulienBCHZ](https://github.com/JulienBCHZ)
-Profile LinkedIn : [@JulienBouchez](https://www.linkedin.com/in/julien-bouchez-developer/)
+- Julien Bouchez : julienbouchez@icloud.com
+- Profile GitHub : [@JulienBCHZ](https://github.com/JulienBCHZ)
+- Profile LinkedIn : [@JulienBouchez](https://www.linkedin.com/in/julien-bouchez-developer/)
