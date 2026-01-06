@@ -125,3 +125,4 @@ Ce projet est fourni à des fins éducatives. Il n’est pas destiné à un usag
 
 Julien Bouchez : julienbouchez@icloud.com
 Profile GitHub : [@JulienBCHZ](https://github.com/JulienBCHZ)
+Profile LinkedIn : [@JulienBouchez](https://www.linkedin.com/in/julien-bouchez-developer/)
