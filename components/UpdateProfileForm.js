@@ -7,21 +7,6 @@ import {
 } from "react-native";
 import axios from "axios";
 
-//    email={email}
-//         setEmail={setEmail}
-//         username={username}
-//         setUsername={setUsername}
-//         description={description}
-//         setDescription={setDescription}
-//    newAvatar={newAvatar}
-//     setNewAvatar={setNewAvatar}
-//     updateLoading={updateLoading}
-//     setUpdateLoading={setUpdateLoading}
-// updateMessage={updateMessage}
-//     setUpdateMessage={setUpdateMessage}
-//  errorMessage={errorMessage}
-//       setErrorMessage={setErrorMessage}
-
 const UpdateProfileForm = ({
   email,
   setEmail,
@@ -29,15 +14,12 @@ const UpdateProfileForm = ({
   setUsername,
   description,
   setDescription,
-  setAvatar,
   newAvatar,
   setNewAvatar,
   updateLoading,
   setUpdateLoading,
   updateMessage,
   setUpdateMessage,
-  errorMessage,
-  setErrorMessage,
   userToken,
 }) => {
   const handleSubmitUpdate = async (event) => {
@@ -66,9 +48,6 @@ const UpdateProfileForm = ({
             );
             if (infoResponse.data) {
               console.log("INFO RETURN :", infoResponse.data);
-              // setEmail(infoResponse.data.email);
-              // setUsername(infoResponse.data.username);
-              // setDescription(infoResponse.data.description);
             } else {
               console.log("ELSE IR :", infoResponse);
             }
@@ -87,7 +66,6 @@ const UpdateProfileForm = ({
             );
             if (avatarResponse.data) {
               console.log("AVATAR RETURN :", avatarResponse.data);
-              // setAvatar(avatarResponse.data.photo.url);
             } else {
               console.log("ELSE AR :", avatarResponse);
             }
@@ -119,9 +97,6 @@ const UpdateProfileForm = ({
           );
           if (infoResponse.data) {
             console.log("INFO RETURN :", infoResponse.data);
-            // setEmail(infoResponse.data.email);
-            // setUsername(infoResponse.data.username);
-            // setDescription(infoResponse.data.description);
             setUpdateLoading(false);
             setUpdateMessage("Profile successfully updated !");
             alert("Profile successfully updated !");

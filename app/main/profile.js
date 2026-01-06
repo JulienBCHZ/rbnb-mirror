@@ -25,7 +25,6 @@ const { width } = Dimensions.get("window");
 export default function ProfilePage() {
   const { userID, userToken, logout } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [description, setDescription] = useState("");
@@ -48,6 +47,7 @@ export default function ProfilePage() {
           response.data.description &&
             setDescription(response.data.description);
           response.data.photo && setAvatar(response.data.photo.url);
+          setIsLoading(false);
         } else {
           alert("Error loading your informations !");
           setIsLoading(false);
@@ -64,33 +64,48 @@ export default function ProfilePage() {
     }
   }, [updateMessage]);
 
-  const handleAccessGalery = () => {
-    const getPermissionAndGetPicture = async () => {
-      //Demander le droit d'accéder à la galerie
-      const { status } =
-        await ImagePicker.requestMediaLibraryPermissionsAsync();
+  const getAccessGalery = async () => {
+    //Demander le droit d'accéder à la galerie
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-      if (status === "granted") {
-        //Ouvrir la galerie photo
-        const result = await ImagePicker.launchImageLibraryAsync({
-          allowsEditing: true,
-          aspect: [1, 1],
-        });
+    if (status === "granted") {
+      //Ouvrir la galerie photo
+      const result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        aspect: [1, 1],
+      });
 
-        if (result.canceled === true) {
-          alert("No picture selected");
-        } else {
-          setNewAvatar(result.assets[0].uri);
-          console.log("URI :", result.assets[0].uri);
-        }
+      if (result.canceled === true) {
+        alert("No picture selected");
       } else {
-        alert("Permission denied");
+        setNewAvatar(result.assets[0].uri);
       }
-    };
-    getPermissionAndGetPicture();
+    } else {
+      alert("Permission denied");
+    }
   };
 
-  return (
+  const getAccessCamera = async () => {
+    //Demander le droit d'accéder à l'appareil photo
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status === "granted") {
+      //Ouvrir l'appareil photo
+      const result = await ImagePicker.launchCameraAsync();
+
+      if (result.canceled === true) {
+        alert("No picture selected");
+      } else {
+        setNewAvatar(result.assets[0].uri);
+        console.log("URI :", result.assets[0].uri);
+      }
+    } else {
+      alert("Permission denied");
+    }
+  };
+
+  return isLoading ? (
+    ActivityIndicatorApp()
+  ) : (
     <View style={styles.container}>
       <View style={styles.avatarSection}>
         {newAvatar ? (
@@ -112,23 +127,11 @@ export default function ProfilePage() {
             <Ionicons name="person" size={80} color="grey" />
           </View>
         )}
-        {/* {avatar ? (
-          <Image
-            style={styles.imageAvatar}
-            source={{ uri: avatar }}
-            resizeMode="contain"
-            alt="avatar"
-          />
-        ) : (
-          <View style={styles.iconAvatar}>
-            <Ionicons name="person" size={80} color="grey" />
-          </View>
-        )} */}
         <View style={styles.pictureUpdate}>
-          <TouchableOpacity onPress={handleAccessGalery}>
+          <TouchableOpacity onPress={getAccessGalery}>
             <MaterialIcons name="photo-library" size={32} color="grey" />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={getAccessCamera}>
             <MaterialIcons name="add-a-photo" size={32} color="grey" />
           </TouchableOpacity>
         </View>
@@ -140,15 +143,12 @@ export default function ProfilePage() {
         setUsername={setUsername}
         description={description}
         setDescription={setDescription}
-        setAvatar={setAvatar}
         newAvatar={newAvatar}
         setNewAvatar={setNewAvatar}
         updateLoading={updateLoading}
         setUpdateLoading={setUpdateLoading}
         updateMessage={updateMessage}
         setUpdateMessage={setUpdateMessage}
-        errorMessage={errorMessage}
-        setErrorMessage={setErrorMessage}
         userToken={userToken}
       />
       <View>
