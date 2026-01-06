@@ -68,6 +68,10 @@ const RoomDetails = ({ id, isLoading, setIsLoading, data, setData }) => {
             });
           }}
         >
+          <View style={styles.price}>
+            <Text style={styles.priceText}>{data.price}</Text>
+            <Text style={styles.priceText}>€</Text>
+          </View>
           <Swiper
             style={styles.swipeWrapper}
             height={180}
@@ -159,7 +163,20 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
 
-  swiperTouch: { height: 220, width },
+  swiperTouch: { height: 220, width, position: "relative" },
+  price: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 20,
+    gap: 3,
+    height: 35,
+    width: 80,
+    backgroundColor: "black",
+    zIndex: 1000,
+  },
+  priceText: { color: "white", fontWeight: 600 },
   photo: { height: 200, width, objectFit: "cover" },
   slide: {
     // flex: 1,
@@ -168,6 +185,7 @@ const styles = StyleSheet.create({
   },
   preview: { justifyContent: "flex-start" },
   swipeWrapper: {},
+
   roomPresentation: { flexDirection: "row", justifyContent: "space-between" },
   ownerAvatar: { height: 80, width: 80, objectFit: "cover", borderRadius: 50 },
   title: {
