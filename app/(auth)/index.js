@@ -46,9 +46,9 @@ export default function LoginPage() {
           setIsLoading(false);
         }
       } catch (error) {
-        error.response
+        error.message
           ? alert("Wrong email and/or password")
-          : console.log(error);
+          : console.log("LOGIN ERROR :", error);
         setIsLoading(false);
       }
     }

@@ -32,12 +32,11 @@ const HomeRooms = ({ isLoading, setIsLoading, data, setData }) => {
         }
       } catch (error) {
         setIsLoading(false);
-        if (error.response) {
-          console.log("ROOMS ERROR : ", error.response);
-          alert(`Something went wrong : ${error.response.data.message}`);
+        console.log("ROOMS ERROR : ", error);
+        if (error.message) {
+          alert(error.message);
         } else {
           alert("Something went wrong...");
-          console.log("RR SERVER ERROR : ", error);
         }
       }
     };

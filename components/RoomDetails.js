@@ -38,17 +38,16 @@ const RoomDetails = ({ id, isLoading, setIsLoading, data, setData }) => {
           setIsLoading(false);
         } else {
           setIsLoading(false);
-          alert("Something went wrong...");
+          alert("Server doesn't respond...");
           console.log("RD : ", response);
         }
       } catch (error) {
         setIsLoading(false);
-        if (error.response) {
-          console.log("R DETAILS ERROR : ", error.response);
-          alert(`Something went wrong : ${error.response.data.message}`);
+        console.log("R DETAILS ERROR : ", error);
+        if (error.message) {
+          alert(error.message);
         } else {
           alert("Something went wrong...");
-          console.log("RR SERVER ERROR : ", error);
         }
       }
     };

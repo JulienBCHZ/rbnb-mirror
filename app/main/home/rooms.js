@@ -7,7 +7,6 @@ import HomeRooms from "../../../components/HomeRooms";
 export default function RoomsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
 
   const router = useRouter();
 

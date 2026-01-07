@@ -19,7 +19,6 @@ const { width } = Dimensions.get("window");
 export default function PicturesPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
 
   const params = useLocalSearchParams();
   const { id } = params;
@@ -34,17 +33,17 @@ export default function PicturesPage() {
             `https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/rooms/${id}`
           );
           if (response.data) {
-            console.log("DATA PICS :", response.data.photos);
+            // console.log("DATA PICS :", response.data.photos);
             setData(response.data.photos);
             setIsLoading(false);
           } else {
-            setErrorMessage("Something went wrong...");
+            alert("Server doesn't respond...");
             setIsLoading(false);
             console.log(response);
           }
         } catch (error) {
           setIsLoading(false);
-          setErrorMessage("Something went wrong...");
+          alert(`Something went wrong : ${error.message}`);
           console.log(error);
         }
       };
@@ -53,10 +52,6 @@ export default function PicturesPage() {
 
     return isLoading ? (
       ActivityIndicatorApp()
-    ) : errorMessage ? (
-      <View style={styles.textContainer}>
-        <Text style={{ fontSize: 16 }}>{errorMessage}</Text>
-      </View>
     ) : (
       <View>
         <FlatList

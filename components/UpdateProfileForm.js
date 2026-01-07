@@ -51,9 +51,9 @@ const UpdateProfileForm = ({
               console.log("ELSE IR :", infoResponse);
             }
           } catch (error) {
-            error.response
-              ? alert(`Something went wrong : ${error.response.data.message}`)
-              : console.log("SERVER ERROR INFOS :", error);
+            error.message
+              ? alert(error.message)
+              : console.log("UPDATE ERROR :", error);
           }
         };
         const putAvatar = async () => {
@@ -69,8 +69,8 @@ const UpdateProfileForm = ({
               console.log("ELSE AR :", avatarResponse);
             }
           } catch (error) {
-            error.response
-              ? alert(`Something went wrong : ${error.response.data.message}`)
+            error.message
+              ? alert(error.message)
               : console.log("SERVER ERROR AVATAR :", error);
           }
         };
@@ -107,14 +107,11 @@ const UpdateProfileForm = ({
           }
         } catch (error) {
           setUpdateLoading(false);
-          setUpdateMessage("Profile has NOT been updated !");
-          if (error.response) {
-            console.log("UPDATE ERROR : ", error.response);
-            alert(
-              `Profile has NOT been updated : ${error.response.data.message}`
-            );
+          setUpdateMessage("Profile has NOT been updated");
+          console.log("UPDATE ERROR : ", error);
+          if (error.message) {
+            alert(error.message);
           } else {
-            console.log("SERVER ERROR INFOS :", error);
             alert(`Profile has NOT been updated...`);
           }
         }

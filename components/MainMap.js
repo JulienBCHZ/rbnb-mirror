@@ -16,9 +16,9 @@ const MainMap = ({ isLoading, setIsLoading, mapData, setMapData }) => {
 
       if (status === "granted") {
         let getPosition = await Location.getCurrentPositionAsync({});
-        console.log("POS. :", getPosition);
-        console.log("LAT. :", getPosition.coords.latitude);
-        console.log("LONG. :", getPosition.coords.longitude);
+        // console.log("POS. :", getPosition);
+        // console.log("LAT. :", getPosition.coords.latitude);
+        // console.log("LONG. :", getPosition.coords.longitude);
         if (getPosition.coords.latitude && getPosition.coords.longitude) {
           const obj = {
             latitude: getPosition.coords.latitude,
@@ -43,21 +43,20 @@ const MainMap = ({ isLoading, setIsLoading, mapData, setMapData }) => {
         );
 
         if (response.data) {
-          console.log("DATA :", response.data);
+          // console.log("DATA :", response.data);
           setMapData(response.data);
           setFinishLoading(true);
         } else {
-          alert("Something went wrong loading locations around you");
+          alert("Server doesn't respond...");
           console.log(response);
         }
       } catch (error) {
         setFinishLoading(true);
-        if (error.response) {
-          console.log("ERROR MSG: ", error.response);
-          alert(`Something went wrong : ${error.response.data.message}`);
+        console.log("MAP ERROR : ", error);
+        if (error.message) {
+          alert(error.message);
         } else {
           alert("Something went wrong loading locations around you");
-          console.log("ERROR : ", error);
         }
       }
     };

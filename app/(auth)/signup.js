@@ -49,17 +49,17 @@ export default function SignupPage() {
           login(response.data.id, response.data.token);
           setIsLoading(false);
         } else {
-          alert("Something went wrong...");
+          alert("Server doesn't respond...");
           setIsLoading(false);
         }
       } catch (error) {
-        if (error.response) {
-          alert(`Something went wrong : ${error.response.data.message}`);
+        console.log("SERVER ERROR : ", error);
+        if (error.message) {
+          alert(error.message);
           setIsLoading(false);
         } else {
           alert(`Something went wrong...`);
           setIsLoading(false);
-          console.log("SERVER ERROR : ", error);
         }
       }
     }

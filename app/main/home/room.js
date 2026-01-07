@@ -7,7 +7,6 @@ import RoomDetails from "../../../components/RoomDetails";
 export default function RoomPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
 
   const router = useRouter();
   const params = useLocalSearchParams();
